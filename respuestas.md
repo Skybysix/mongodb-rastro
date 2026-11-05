@@ -15,12 +15,27 @@ La tabla anuncios tendría 21 columnas: 8 campos de anuncios comunes y 13 campos
 
 2\.Rellena la fila de la chaqueta. ¿Cuántas columnas quedan en NULL?
 
-Tendría 11 filas vacías: 
+Tendría 11 filas vacías.
 
 3\.Mañana llega la categoría Deporte (talla, tipo de bici, pulgadas de rueda). ¿Qué tendrías que cambiar en la base de datos?
+
+Tendría que añadir una nueva fila (categoría) para Deportes y tres columnas nuevas: talla, tipo de bici y pulgadas de rueda
 
 
 4\.Otra opción en SQL: una tabla por categoría (coches, moviles…), cada una con anuncio_id. ¿Cuántos JOIN harían falta para listar «todos los anuncios de Valencia con sus datos»?
 
+Cuatro JOIN. Uno para cada categoría.
+
 
 5\.Escribe el documento del iPhone y el de la mesa.
+
+MÓVIL:
+
+{ titulo: "iPhone 13", categoria: "Móviles", precio: 400,
+  atributos: { marca: "Apple", modelo: "iPhone 13", almacenamiento:128 , batería: 87 } }
+
+MESA:
+
+{titulo: "Mesa de comedor", categoria: "Muebles", precio: 150,
+  atributos: {material: "roble", ancho: 160, fondo: 90,calto: 75
+  }}
