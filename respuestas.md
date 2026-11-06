@@ -114,19 +114,34 @@ No, porque se necesita conservar el precio del anuncio al momento de realizar la
 
 1\.¿Embebes las valoraciones dentro del usuario valorado, o colección aparte? Justifícalo.
 
-
+En una colección aparte, Cuando leemos el perfil del vendedor no necesitamos todas sus valoraciones y estas están relaciona con el usuario y el vendedor al mismo tiempo. 
 
 2\.Escribe un documento de valoración: Hugo (660000000000000000000004) valora con 5 estrellas a Marta (660000000000000000000003) por el anuncio 670000000000000000000004, comentario «Todo perfecto».
 
-
+{
+  autorId: ObjectId("660000000000000000000004"),
+  usuarioValoradoId: ObjectId("660000000000000000000003"),
+  anuncioId: ObjectId("670000000000000000000004"),
+  estrellas: 5,
+  comentario: "Todo perfecto",
+  fecha: new Date()
+}
 
 3\.Un usuario solo puede valorar una vez cada compra. En SQL pondrías un UNIQUE (…, …). ¿Sobre qué dos campos crearías un índice único en MongoDB?  
 
+Crearia un índice único con dos campos: autorId, anuncioId. Quedaría así:
 
+db.valoraciones.createIndex(
+  { autorId: 1, anuncioId: 1 },
+  { unique: true }
+)
 
 4\.El perfil muestra la nota media del usuario. Calcularla cada vez recorriendo todas sus valoraciones es lento. ¿Qué dos campos guardarías en el documento del usuario para mostrarla al momento?
 
+Dos campos: sumaEstrellas, numeroValoraciones. Quedaría así:
 
+sumaEstrellas: 23,
+numeroValoraciones: 5
 
 ### Ejercicio A5
 
