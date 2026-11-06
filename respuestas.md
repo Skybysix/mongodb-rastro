@@ -63,38 +63,68 @@ En sql usabamos claves ajenas y en MongoDB se usan referencias mediante el id.
 
 ### Ejercicio A3
 
- 1\.Haz las preguntas del apartado 2. ¿Embebes las ofertas en el anuncio o creas una colección ofertas?
+1\.Haz las preguntas del apartado 2. ¿Embebes las ofertas en el anuncio o creas una colección ofertas?
 
+a.¿Cuando leo el anuncio necesito siempre todas sus ofertas?
 
+No.
 
-2\.
+b.¿Una oferta pertenece exclusivamente a un anuncio?
 
+Sí, pero también está relacionada con el usuario que la realiza.
 
+c.Se comparte entre muchos anuncios?
 
-3\.
+No.
 
+d.¿Puede crecer sin límite?
 
+Sí. Pueden haber varios usuarios interesados.
 
-4\.
+No embebemos las ofertas. Creamos una colección aparte llamada ofertas.
 
+2\.Escribe un documento de oferta de ejemplo: Sara (660000000000000000000005) ofrece 340 € por el iPhone.
 
+{
+  compradorId: ObjectId("660000000000000000000005"),
+  anuncioId: ObjectId("670000000000000000000003"),
+  importe: 340,
+  estado: "PENDIENTE",
+  fecha: new Date()
+}
+
+3\.Cuando Sara abre «mis ofertas», quiere ver el título del anuncio y el precio que pedían, sin abrir el anuncio. ¿Qué copiarías dentro de la oferta?
+
+{
+  compradorId: ObjectId("660000000000000000000005"),
+  anuncioId: ObjectId("670000000000000000000003"),
+  titulo: "iPhone 13",
+  precioAnuncio: 400,
+  importe: 340,
+  estado: "PENDIENTE",
+  fecha: new Date()
+}
+
+4\.Si mañana Ana baja el precio del iPhone a 350 €, ¿debe cambiar el precio guardado en la oferta? ¿Por qué? (Pista: piensa en el precio de una línea de pedido de Furniro.)
+
+No, porque se necesita conservar el precio del anuncio al momento de realizar la oferta
 
 ### Ejercicio A4
 
 
-1\.
+1\.¿Embebes las valoraciones dentro del usuario valorado, o colección aparte? Justifícalo.
 
 
 
-2\.
+2\.Escribe un documento de valoración: Hugo (660000000000000000000004) valora con 5 estrellas a Marta (660000000000000000000003) por el anuncio 670000000000000000000004, comentario «Todo perfecto».
 
 
 
-3\.
+3\.Un usuario solo puede valorar una vez cada compra. En SQL pondrías un UNIQUE (…, …). ¿Sobre qué dos campos crearías un índice único en MongoDB?  
 
 
 
-4\.
+4\.El perfil muestra la nota media del usuario. Calcularla cada vez recorriendo todas sus valoraciones es lento. ¿Qué dos campos guardarías en el documento del usuario para mostrarla al momento?
 
 
 
