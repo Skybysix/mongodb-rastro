@@ -39,3 +39,23 @@ MESA:
 {titulo: "Mesa de comedor", categoria: "Muebles", precio: 150,
   atributos: {material: "roble", ancho: 160, fondo: 90,calto: 75
   }}
+
+### Ejercicio A2
+
+1\.¿Por qué no embebemos el usuario completo dentro del anuncio? Da dos razones.
+
+a. Porque Luis tiene varios anuncios y en cada uno de ellos habría que poner sus datos
+
+b. Porque cada vez que cambiase la infromación de Luis, habría que cambiarla también en cada uno de sus anuncios. Al tener dos documentos (usuario y anuncios) enlazados, sólo hay que cambiar el documento de usuario.
+
+2\.¿Por qué copiamos el nombre del vendedor y no su email ni su ciudad?
+
+Porque lo único que necesita saber el usuario que ve el anuncio (la información realmente útil) es quién es el vendedor.
+
+3\.Si Luis cambia su nombre, ¿qué documentos hay que actualizar?
+
+Los dos documentos. El del anuncio y el del usuario.
+
+4\.En el gimnasio de SQL, ¿cómo se resolvía «mostrar el nombre del monitor de cada clase»? ¿Qué cambia aquí?
+
+En sql usabamos claves ajenas y en MongoDB se usan referencias mediante el id.
