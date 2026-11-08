@@ -198,3 +198,19 @@ Embeber dentro del documento del pedido. Porque las líneas pertenecen a ese ped
 8\.Furniro: las reseñas de un producto.
 
 Referenciar guardando en una colección: reseñas. Porque un producto puede acumular muchísimas reseñas y estas pueden consultarse por separado.
+
+## Comparación con el modelo completo
+
+-Mi diseño coincide prácticamente con el modelo propuesto.
+
+He elegido:
+
+-Embeber las fotos dentro de los anuncios porque pertenecen a ellos y se consultan juntas.
+
+-Referenciar los anuncios desde los usuarios mediante usuarioId.
+
+-Guardar las ofertas y las valoraciones en colecciones independientes porque pueden crecer y consultarse por separado.
+
+-Guardar los favoritos como un array de IDs dentro del usuario porque facilita consultar sus favoritos.
+
+-Copiar algunos datos, como el nombre del vendedor, para facilitar las consultas sin tener que acceder a otras colecciones.
