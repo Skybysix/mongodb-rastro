@@ -145,26 +145,30 @@ numeroValoraciones: 5
 
 ### Ejercicio A5
 
-1\.
+1\.Un usuario normal, ¿cuántos favoritos tendrá? ¿Y cuántos usuarios pueden tener en favoritos un anuncio popular?
 
 
 
 
-2\.
+2\.Con eso, descarta una de las tres opciones y explica por qué.
 
 
 
 
-3\.
+
+3\.La pantalla «Mis favoritos» es de las más usadas. ¿Qué opción la hace más fácil?
 
 
 
 
-4\.
+
+4\.Con la opción a, ¿cómo sabrías cuántos usuarios tienen un anuncio en favoritos? (Pista: un filtro sobre un array encuentra los documentos que contienen ese valor.)
 
 
 
-5\.
+
+5\.¿Qué operador usarías para añadir un favorito sin que se repita si el usuario pulsa dos veces?
+
 
 
 
