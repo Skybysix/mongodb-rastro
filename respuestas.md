@@ -216,3 +216,9 @@ He elegido:
 -Copiar algunos datos, como el nombre del vendedor, para facilitar las consultas sin tener que acceder a otras colecciones.
 
 # PARTE B — Construirlo en MongoDBgit 
+
+### B2
+
+1\. «Deporte» es una categoría que no existía. ¿Has tenido que cambiar algo antes de insertar? ¿Qué habría pasado en PostgreSQL?
+
+Porque MongoDB permite introducir valores nuevos en el campo `categoria` sin necesidad de declarar previamente las categorías existentes.
