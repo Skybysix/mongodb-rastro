@@ -326,3 +326,61 @@ db.anuncios.insertOne({
     bateriaPct: 92
   }
 })
+
+// Ejercicio B3.
+
+//3.1. Crea un índice único sobre el email de usuarios.
+
+db.usuarios.createIndex(
+  { email: 1 },
+  { unique: true }
+)
+
+//3.2. Crea un índice único sobre la pareja autor.id + anuncioId de valoraciones.
+
+db.valoraciones.createIndex(
+  { "autor.id": 1, anuncioId: 1 },
+  { unique: true }
+)
+
+//3.3. La búsqueda más habitual es «anuncios de una categoría ordenados por precio». Crea un índice sobre categoria y precio.
+
+db.anuncios.createIndex(
+  { categoria: 1, precio: 1 }
+)
+
+//3.4. Muestra los índices de las tres colecciones.
+
+rastro> db.usuarios.getIndexes()
+[
+  { v: 2, key: { _id: 1 }, name: '_id_' },
+  { v: 2, key: { email: 1 }, name: 'email_1', unique: true }
+]
+
+rastro> db.anuncios.getIndexes()
+
+[
+  { v: 2, key: { _id: 1 }, name: '_id_' },
+  {
+    v: 2,
+    key: { 'autor.id': 1, anuncioId: 1 },
+    name: 'autor.id_1_anuncioId_1',
+    unique: true
+  }
+]
+
+rastro> db.valoraciones.getIndexes()
+
+[
+  { v: 2, key: { _id: 1 }, name: '_id_' },
+  {
+    v: 2,
+    key: { 'autor.id': 1, anuncioId: 1 },
+    name: 'autor.id_1_anuncioId_1',
+    unique: true
+  }
+]
+
+//3.5. Comprueba con explain() que db.anuncios.find({ categoria: "Coches" }).sort({ precio: 1 }) usa el índice.
+
+//En respuestas.md

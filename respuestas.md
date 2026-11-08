@@ -222,3 +222,131 @@ He elegido:
 1\. «Deporte» es una categoría que no existía. ¿Has tenido que cambiar algo antes de insertar? ¿Qué habría pasado en PostgreSQL?
 
 Porque MongoDB permite introducir valores nuevos en el campo `categoria` sin necesidad de declarar previamente las categorías existentes.
+
+### B2
+
+5\.Comprueba con explain() que db.anuncios.find({ categoria: "Coches" }).sort({ precio: 1 }) usa el índice.
+
+
+rastro> db.anuncios.find({ categoria: "Coches" })
+|   .sort({ precio: 1 })
+|   .explain("executionStats")
+{
+  explainVersion: '1',
+  queryPlanner: {
+    namespace: 'rastro.anuncios',
+    parsedQuery: { categoria: { '$eq': 'Coches' } },
+    indexFilterSet: false,
+    queryHash: '7C3D7778',
+    planCacheShapeHash: '7C3D7778',
+    planCacheKey: '286661EE',
+    optimizationTimeMillis: 1,
+    maxIndexedOrSolutionsReached: false,
+    maxIndexedAndSolutionsReached: false,
+    maxScansToExplodeReached: false,
+    prunedSimilarIndexes: false,
+    winningPlan: {
+      isCached: false,
+      stage: 'FETCH',
+      nss: 'rastro.anuncios',
+      inputStage: {
+        stage: 'IXSCAN',
+        nss: 'rastro.anuncios',
+        keyPattern: { categoria: 1, precio: 1 },
+        indexName: 'categoria_1_precio_1',
+        isMultiKey: false,
+        multiKeyPaths: { categoria: [], precio: [] },
+        isUnique: false,
+        isSparse: false,
+        isPartial: false,
+        indexVersion: 2,
+        direction: 'forward',
+        indexBounds: {
+          categoria: [ '["Coches", "Coches"]' ],
+          precio: [ '[MinKey, MaxKey]' ]
+        }
+      }
+    },
+    rejectedPlans: []
+  },
+  executionStats: {
+    executionSuccess: true,
+    nReturned: 2,
+    executionTimeMillis: 9,
+    totalKeysExamined: 2,
+    totalDocsExamined: 2,
+    executionStages: {
+      isCached: false,
+      stage: 'FETCH',
+      nReturned: 2,
+      executionTimeMillisEstimate: 0,
+      works: 3,
+      advanced: 2,
+      needTime: 0,
+      needYield: 0,
+      saveState: 0,
+      restoreState: 0,
+      isEOF: 1,
+      nss: 'rastro.anuncios',
+      docsExamined: 2,
+      alreadyHasObj: 0,
+      inputStage: {
+        stage: 'IXSCAN',
+        nReturned: 2,
+        executionTimeMillisEstimate: 0,
+        works: 3,
+        advanced: 2,
+        needTime: 0,
+        needYield: 0,
+        saveState: 0,
+        restoreState: 0,
+        isEOF: 1,
+        nss: 'rastro.anuncios',
+        keyPattern: { categoria: 1, precio: 1 },
+        indexName: 'categoria_1_precio_1',
+        isMultiKey: false,
+        multiKeyPaths: { categoria: [], precio: [] },
+        isUnique: false,
+        isSparse: false,
+        isPartial: false,
+        indexVersion: 2,
+        direction: 'forward',
+        indexBounds: {
+          categoria: [ '["Coches", "Coches"]' ],
+          precio: [ '[MinKey, MaxKey]' ]
+        },
+        keysExamined: 2,
+        seeks: 1,
+        dupsTested: 0,
+        dupsDropped: 0,
+        peakTrackedMemBytes: 0
+      }
+    }
+  },
+  queryShapeHash: '7D9458D35DA2CA88F3696C232CB11786BACAEC18FABF5B2B33BC1BA16898EA7E',
+  command: {
+    find: 'anuncios',
+    filter: { categoria: 'Coches' },
+    sort: { precio: 1 },
+    '$db': 'rastro'
+  },
+  serverInfo: {
+    host: 'e15881248332',
+    port: 27017,
+    version: '8.3.13',
+    gitVersion: '3b8a5e1f78cf7b94c40a78ad3fe93708cdca8323'
+  },
+  serverParameters: {
+    internalQueryFacetBufferSizeBytes: 104857600,
+    internalDocumentSourceGroupMaxMemoryBytes: 104857600,
+    internalQueryMaxBlockingSortMemoryUsageBytes: 104857600,
+    internalDocumentSourceSetWindowFieldsMaxMemoryBytes: 104857600,
+    internalQueryFacetMaxOutputDocSizeBytes: 104857600,
+    internalLookupStageIntermediateDocumentMaxSizeBytes: 104857600,
+    internalQueryProhibitBlockingMergeOnMongoS: 0,
+    internalQueryMaxAddToSetBytes: 104857600,
+    internalQueryFrameworkControl: 'trySbeRestricted',
+    internalQueryPlannerIgnoreIndexWithCollationForRegex: 1
+  },
+  ok: 1
+}
