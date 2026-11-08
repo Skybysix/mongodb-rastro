@@ -167,35 +167,34 @@ Usaría $addToSet.
 
 ### Ejercicio A6
 
-1\.
+1\.Los mensajes de chat entre comprador y vendedor sobre un anuncio.
 
+Referenciar en una colección aparte llamada: mensajes. Porque una conversación puede acumular muchísimos mensajes y crecer sin límite dentro de un documento.
 
+2\.La dirección de envío de una compra.
 
+Embeber dentro del documento de la compra. Porque necesitamos guardar la dirección que tenía el comprador en el momento de realizar la compra, aunque después la cambie.
 
-2\.
+3\.Las etiquetas de un anuncio (["urgente", "negociable"]).
 
+Embeber dentro del documento del anuncio porque tienen relación directa y pertenecen a ese documento.
 
+4\.Las categorías, si cada una tiene nombre, icono y lista de atributos obligatorios.
 
+Referenciar en una colección nueva: categorías. Porque son datos que pueden compartirse entre muchos anuncios y gestionarse de forma independiente.
 
-3\.
+5\.El historial de cambios de precio de un anuncio (fecha y precio).
 
+Embeber. Porque el historial pertenece al anuncio y normalmente queremos consultarlo junto a él.
 
+6\.Los anuncios de un usuario, dentro del documento del usuario.
 
+Referenciar mediante el id del usuario. Porque un usuario puede tener muchos anuncios y estos pueden consultarse independientemente de su perfil.
 
-4\.
+7\.Furniro: las líneas de un pedido.
 
+Embeber dentro del documento del pedido. Porque las líneas pertenecen a ese pedido y normalmente se consultan junto a él.
 
+8\.Furniro: las reseñas de un producto.
 
-5\.
-
-
-
-6\.
-
-
-
-7\.
-
-
-
-8\.
+Referenciar guardando en una colección: reseñas. Porque un producto puede acumular muchísimas reseñas y estas pueden consultarse por separado.
