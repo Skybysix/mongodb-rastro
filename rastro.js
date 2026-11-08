@@ -902,10 +902,6 @@ db.anuncios.find(
   { titulo: 'Samsung Galaxy A52', visitas: 210 }
 ]
 
-//5.12
-
-No dan error. Simplemente no aparecen en los resultados porque no tienen ese campo.
-
 //Ejercicio B6
 
 //6.1
@@ -922,16 +918,272 @@ db.anuncios.aggregate([
   }
 ])
 
+[
+  { _id: 'Móviles', total: 4 },
+  { _id: 'Ropa', total: 2 },
+  { _id: 'Coches', total: 2 },
+  { _id: 'Muebles', total: 1 },
+  { _id: 'Deporte', total: 1 }
+]
+
 //6.2
 
+db.anuncios.aggregate([
+  {
+    $group: {
+      _id: "$categoria",
+      precioMedio: { $avg: "$precio" }
+    }
+  }
+])
 
+[
+  { _id: 'Muebles', precioMedio: 120 },
+  { _id: 'Móviles', precioMedio: 220 },
+  { _id: 'Coches', precioMedio: 5350 },
+  { _id: 'Ropa', precioMedio: 32.5 },
+  { _id: 'Deporte', precioMedio: 300 }
+]
 
 //6.3
 
+db.anuncios.aggregate([
+  {
+    $group: {
+      _id: "$ciudad",
+      total: { $sum: 1 }
+    }
+  }
+])
 
+[
+  { _id: 'Alicante', total: 2 },
+  { _id: 'Valencia', total: 5 },
+  { _id: 'Castellón', total: 3 }
+]
 
 //6.4
 
+db.anuncios.aggregate([
+  {
+    $match: { estado: "DISPONIBLE" }
+  },
+  {
+    $group: {
+      _id: "$vendedor.nombre",
+      valorTotal: { $sum: "$precio" }
+    }
+  }
+])
+
+[
+  { _id: 'Hugo Sanz', valorTotal: 4620 },
+  { _id: 'Luis Martín', valorTotal: 6590 },
+  { _id: 'Ana García', valorTotal: 380 },
+  { _id: 'Sara López', valorTotal: 260 },
+  { _id: 'Marta Ruiz', valorTotal: 25 }
+]
+
+//6.5
+
+db.anuncios.aggregate([
+  {
+    $group: {
+      _id: "$categoria",
+      visitasTotales: { $sum: "$visitas" }
+    }
+  },
+  {
+    $sort: { visitasTotales: -1 }
+  },
+  {
+    $limit: 1
+  }
+])
+
+[ { _id: 'Móviles', visitasTotales: 770 } ]
+
+//  Ejercicio B7
+
+//7.1
+
+db.anuncios.updateOne(
+  { _id: ObjectId("670000000000000000000003") },
+  {
+    $push: {
+      fotos: {
+        url: "https://img.rastro.es/a3-4.jpg",
+        orden: 4
+      }
+    }
+  }
+)
+
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+
+//7.2
+
+db.anuncios.find(
+  { _id: ObjectId("670000000000000000000005") }
+)
+
+db.anuncios.updateOne(
+  { _id: ObjectId("670000000000000000000005") },
+  { $inc: { visitas: 1 } }
+)
+
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+
+//7.3
+
+db.usuarios.find(
+  { _id: ObjectId("660000000000000000000005") }
+)
+
+db.anuncios.find(
+  { titulo: /Ford Focus/i },
+  { titulo: 1, _id: 1 }
+)
 
 
-6.5
+
+var fordFocus = db.anuncios.findOne(
+  { titulo: /Ford Focus/i },
+  { _id: 1 }
+)
+
+db.usuarios.updateOne(
+  { _id: ObjectId("660000000000000000000005") },
+  {
+    $pull: {
+      favoritos: ObjectId("670000000000000000000003")
+    }
+  }
+)
+
+db.usuarios.updateOne(
+  { _id: ObjectId("660000000000000000000005") },
+  {
+    $addToSet: {
+      favoritos: fordFocus._id
+    }
+  }
+)
+
+db.usuarios.updateOne(
+  { _id: ObjectId("660000000000000000000005") },
+  {
+    $addToSet: {
+      favoritos: fordFocus._id
+    }
+  }
+)
+
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 0,
+  upsertedCount: 0
+}
+
+//No se ha duplicado el anuncio en favoritos porque ya estaba en la lista de favoritos del usuario.
+
+//7.4
+
+db.ofertas.find(
+  { _id: ObjectId("680000000000000000000003") }
+)
+
+db.ofertas.updateOne(
+  { _id: ObjectId("680000000000000000000003") },
+  { $set: { estado: "ACEPTADA" } }
+)
+
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+
+db.anuncios.updateOne(
+  { _id: ObjectId("670000000000000000000001") },
+  { $set: { estado: "RESERVADO" } }
+)
+
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+
+//7.5
+
+db.anuncios.find(
+  { categoria: "Coches" }
+)
+
+db.anuncios.updateMany(
+  { categoria: "Coches" },
+  { $mul: { precio: 0.9 } }
+)
+
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 2,
+  modifiedCount: 2,
+  upsertedCount: 0
+}
+
+//7.6
+
+db.usuarios.find(
+  { _id: ObjectId("660000000000000000000002") }
+)
+
+db.usuarios.updateOne(
+  { _id: ObjectId("660000000000000000000002") },
+  { $set: { nombre: "Luis M. Martín" } }
+)
+
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+
+db.anuncios.find(
+  { "vendedor.id": ObjectId("660000000000000000000002") }
+)
+
+db.anuncios.updateMany(
+  { "vendedor.id": ObjectId("660000000000000000000002") },
+  { $set: { "vendedor.nombre": "Luis M. Martín" } }
+)
+
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 2,
+  modifiedCount: 2,
+  upsertedCount: 0
+}

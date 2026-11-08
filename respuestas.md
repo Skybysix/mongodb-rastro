@@ -438,3 +438,9 @@ MongoDB no comprueba automáticamente que las referencias existan ni que los dat
 12\.en la consulta 2 has filtrado por atributos.km. ¿Qué pasa con los anuncios que no tienen ese campo, como el iPhone? ¿Dan error?
 
 No dan error. Simplemente no aparecen en los resultados porque no tienen ese campo.
+
+### B7
+
+4\.¿Cuántas instrucciones has necesitado? ¿Qué pasaría si se corta la luz justo entre la primera y la segunda?
+
+2 instrucciones. Si se cortase la luz la oferta podría quedar aceptada, pero el anuncio seguiría sin estar reservado. MongoDB necesitaría una transacción para garantizar que ambas operaciones se realicen juntas.
