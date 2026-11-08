@@ -1187,3 +1187,37 @@ db.anuncios.updateMany(
   modifiedCount: 2,
   upsertedCount: 0
 }
+
+db.ofertas.find(
+  { "comprador.id": ObjectId("660000000000000000000002") }
+)
+
+db.ofertas.updateMany(
+  { "comprador.id": ObjectId("660000000000000000000002") },
+  { $set: { "comprador.nombre": "Luis M. Martín" } }
+)
+
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+
+db.valoraciones.find(
+  { "autor.id": ObjectId("660000000000000000000002") }
+)
+
+db.valoraciones.updateMany(
+  { "autor.id": ObjectId("660000000000000000000002") },
+  { $set: { "autor.nombre": "Luis M. Martín" } }
+)
+
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 0,
+  modifiedCount: 0,
+  upsertedCount: 0
+}

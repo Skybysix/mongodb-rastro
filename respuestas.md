@@ -444,3 +444,31 @@ No dan error. Simplemente no aparecen en los resultados porque no tienen ese cam
 4\.¿Cuántas instrucciones has necesitado? ¿Qué pasaría si se corta la luz justo entre la primera y la segunda?
 
 2 instrucciones. Si se cortase la luz la oferta podría quedar aceptada, pero el anuncio seguiría sin estar reservado. MongoDB necesitaría una transacción para garantizar que ambas operaciones se realicen juntas.
+
+### B8
+
+1
+
+
+
+2
+
+
+
+3
+
+
+
+4
+
+
+
+5
+
+
+
+6
+
+
+
+
