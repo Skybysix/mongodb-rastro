@@ -384,3 +384,130 @@ rastro> db.valoraciones.getIndexes()
 //3.5. Comprueba con explain() que db.anuncios.find({ categoria: "Coches" }).sort({ precio: 1 }) usa el índice.
 
 //En respuestas.md
+
+
+
+//Ejercicio B5.
+
+//5.1
+
+db.anuncios.find(
+  { estado: "DISPONIBLE", ciudad: "Valencia" },
+  { titulo: 1, precio: 1, _id: 0 }
+).sort({ precio: 1 })
+
+[
+  { titulo: 'Xiaomi Redmi Note 10', precio: 90 },
+  { titulo: 'Google Pixel 7', precio: 260 },
+  { titulo: 'iPhone 13 128 GB', precio: 380 },
+]
+
+//5.2
+
+db.anuncios.find({
+  categoria: "Coches",
+  "atributos.km": { $lt: 100000 }
+})
+
+[
+  {
+    _id: ObjectId('670000000000000000000001'),
+    titulo: 'Seat Ibiza 2015',
+    descripcion: 'Siempre en garaje, ITV pasada.',
+    precio: 6500,
+    categoria: 'Coches',
+    estado: 'DISPONIBLE',
+    ciudad: 'Valencia',
+    fechaPublicacion: ISODate('2026-10-01T00:00:00.000Z'),
+    visitas: 340,
+    vendedor: { id: ObjectId('660000000000000000000002'), nombre: 'Luis Martín' },
+    fotos: [
+      { url: 'https://img.rastro.es/a1-1.jpg', orden: 1 },
+      { url: 'https://img.rastro.es/a1-2.jpg', orden: 2 }
+    ],
+    atributos: {
+      marca: 'Seat',
+      modelo: 'Ibiza',
+      anio: 2015,
+      km: 98000,
+      combustible: 'gasolina'
+    }
+  }
+]
+
+//5.3
+
+db.anuncios.find({
+  categoria: "Móviles",
+  "atributos.almacenamientoGB": { $gte: 128 }
+})
+
+[
+  {
+    _id: ObjectId('670000000000000000000004'),
+    titulo: 'Samsung Galaxy A52',
+    descripcion: 'Pantalla sin rayas.',
+    precio: 150,
+    categoria: 'Móviles',
+    estado: 'VENDIDO',
+    ciudad: 'Alicante',
+    fechaPublicacion: ISODate('2026-09-05T00:00:00.000Z'),
+    visitas: 210,
+    vendedor: { id: ObjectId('660000000000000000000003'), nombre: 'Marta Ruiz' },
+    fotos: [ { url: 'https://img.rastro.es/a4-1.jpg', orden: 1 } ],
+    atributos: {
+      marca: 'Samsung',
+      modelo: 'Galaxy A52',
+      almacenamientoGB: 128,
+      bateriaPct: 80
+    }
+  },
+  {
+    _id: ObjectId('6af0d113dafbb452049180c7'),
+    titulo: 'Google Pixel 7',
+    descripcion: 'Libre, con caja.',
+    precio: 260,
+    categoria: 'Móviles',
+    estado: 'DISPONIBLE',
+    ciudad: 'Valencia',
+    fechaPublicacion: ISODate('2026-10-28T00:00:00.000Z'),
+    visitas: 0,
+    vendedor: { id: ObjectId('660000000000000000000005'), nombre: 'Sara López' },
+    fotos: [
+      { url: 'https://img.rastro.es/pixel-1.jpg', orden: 1 },
+      { url: 'https://img.rastro.es/pixel-2.jpg', orden: 2 }
+    ],
+    atributos: {
+      marca: 'Google',
+      modelo: 'Pixel 7',
+      almacenamientoGB: 128,
+      bateriaPct: 92
+    }
+  },
+  {
+    _id: ObjectId('670000000000000000000003'),
+    titulo: 'iPhone 13 128 GB',
+    descripcion: 'Con funda y cargador.',
+    precio: 380,
+    categoria: 'Móviles',
+    estado: 'DISPONIBLE',
+    ciudad: 'Valencia',
+    fechaPublicacion: ISODate('2026-10-20T00:00:00.000Z'),
+    visitas: 512,
+    vendedor: { id: ObjectId('660000000000000000000001'), nombre: 'Ana García' },
+    fotos: [
+      { url: 'https://img.rastro.es/a3-1.jpg', orden: 1 },
+      { url: 'https://img.rastro.es/a3-2.jpg', orden: 2 },
+      { url: 'https://img.rastro.es/a3-3.jpg', orden: 3 }
+    ],
+    atributos: {
+      marca: 'Apple',
+      modelo: 'iPhone 13',
+      almacenamientoGB: 128,
+      bateriaPct: 87
+    }
+  }
+]
+
+//5.4
+
