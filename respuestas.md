@@ -147,30 +147,23 @@ numeroValoraciones: 5
 
 1\.Un usuario normal, ¿cuántos favoritos tendrá? ¿Y cuántos usuarios pueden tener en favoritos un anuncio popular?
 
-
-
+Un usuario normal puede tener varios anuncios en favoritos. Y un anuncio popular puede estar en el favoritos de muchos usuarios.
 
 2\.Con eso, descarta una de las tres opciones y explica por qué.
 
-
-
-
+La opción b, porque un anuncio popular podría tener miles de usuarios que lo guardasen en favoritos, haciendo que el array creciera demasiado dentro del documento del anuncio.
 
 3\.La pantalla «Mis favoritos» es de las más usadas. ¿Qué opción la hace más fácil?
 
-
-
-
+La a, porque tenemos guardados los anuncios favoritos directamente en el usuario y es más fácil encontrarlos cuando queremos mostrar su lista de favoritos.
 
 4\.Con la opción a, ¿cómo sabrías cuántos usuarios tienen un anuncio en favoritos? (Pista: un filtro sobre un array encuentra los documentos que contienen ese valor.)
 
-
-
+Buscaría el ID del anuncio dentro del array favoritos de todos los usuarios y contaría cuántos usuarios lo tienen guardado y utilizaría countDocuments() con un filtro sobre el array favoritos para contar cuántos usuarios tienen ese anuncio guardado.
 
 5\.¿Qué operador usarías para añadir un favorito sin que se repita si el usuario pulsa dos veces?
 
-
-
+Usaría $addToSet.
 
 ### Ejercicio A6
 
