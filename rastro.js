@@ -872,11 +872,55 @@ db.ofertas.find({
   }
 ]
 
+//5.9
+
+db.usuarios.find(
+  { favoritos: ObjectId("670000000000000000000008") },
+  { nombre: 1, _id: 0 }
+)
+
+[ { nombre: 'Ana García' }, { nombre: 'Sara López' } ]
+
+//5.10
+
+db.anuncios.countDocuments({
+  estado: "VENDIDO"
+})
+
+1
+
+//5.11
+
+db.anuncios.find(
+  {},
+  { titulo: 1, visitas: 1, _id: 0 }
+).sort({ visitas: -1 }).limit(3)
+
+[
+  { titulo: 'iPhone 13 128 GB', visitas: 512 },
+  { titulo: 'Seat Ibiza 2015', visitas: 340 },
+  { titulo: 'Samsung Galaxy A52', visitas: 210 }
+]
+
+//5.12
+
+No dan error. Simplemente no aparecen en los resultados porque no tienen ese campo.
+
 //Ejercicio B6
 
 //6.1
 
-
+db.anuncios.aggregate([
+  {
+    $group: {
+      _id: "$categoria",
+      total: { $sum: 1 }
+    }
+  },
+  {
+    $sort: { total: -1 }
+  }
+])
 
 //6.2
 

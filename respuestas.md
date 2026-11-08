@@ -432,3 +432,9 @@ Porque el precio está guardado como texto (`"75"`) y no como número.
 9\.¿qué tienen en común B4.3 y B4.4? Pista: piensa en lo que MongoDB no comprueba por ti.
 
 MongoDB no comprueba automáticamente que las referencias existan ni que los datos tengan el tipo correcto.
+
+### B6
+
+12\.en la consulta 2 has filtrado por atributos.km. ¿Qué pasa con los anuncios que no tienen ese campo, como el iPhone? ¿Dan error?
+
+No dan error. Simplemente no aparecen en los resultados porque no tienen ese campo.
