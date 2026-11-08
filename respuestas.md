@@ -214,3 +214,5 @@ He elegido:
 -Guardar los favoritos como un array de IDs dentro del usuario porque facilita consultar sus favoritos.
 
 -Copiar algunos datos, como el nombre del vendedor, para facilitar las consultas sin tener que acceder a otras colecciones.
+
+# PARTE B — Construirlo en MongoDBgit 
