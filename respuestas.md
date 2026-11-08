@@ -223,7 +223,7 @@ He elegido:
 
 Porque MongoDB permite introducir valores nuevos en el campo `categoria` sin necesidad de declarar previamente las categorías existentes.
 
-### B2
+### B3
 
 5\.Comprueba con explain() que db.anuncios.find({ categoria: "Coches" }).sort({ precio: 1 }) usa el índice.
 
@@ -350,3 +350,85 @@ rastro> db.anuncios.find({ categoria: "Coches" })
   },
   ok: 1
 }
+
+### B4
+
+1\.Un usuario con el email de Ana.
+
+a. Qué creo que pasará
+
+Dará error porque hemos puesto que un email solo pertenece a un usuario.
+
+d. Línea de error.
+
+MongoServerError: E11000 duplicate key error collection: rastro.usuarios index: email_1 dup key: { email: "ana@rastro.es" }
+
+(LMongoDB rechaza la inserción porque el email ya pertenece a otro usuario. Lo impide el índice único que creamos sobre el campo `email`.).
+
+2\.Hugo valora otra vez a Marta por el mismo anuncio.
+
+a. Qué creo que pasará
+
+Ya tiene un id la valoración y no se puede repetir.
+
+d. Línea de error.
+
+MongoServerError: E11000 duplicate key error collection: rastro.valoraciones index: autor.id_1_anuncioId_1 dup key: { autor.id: ObjectId('660000000000000000000004'), anuncioId: ObjectId('670000000000000000000004') }
+
+(MongoDB rechaza la inserción porque Hugo ya ha valorado ese anuncio. Lo impide el índice único compuesto sobre `autor.id` y `anuncioId`, que evita que un mismo autor valore dos veces el mismo anuncio.).
+
+3\.Un anuncio de un vendedor que no existe.
+
+a. Qué creo que pasará
+
+Primero habría que crear el documento del vendedor y luego embeberlo al anuncio.
+
+d. Línea de error.
+
+No hay. MongoDB permite insertar el anuncio aunque el vendedor no exista. No comprueba automáticamente las relaciones entre colecciones, por lo que podemos guardar referencias a documentos inexistentes.
+
+4\.Un anuncio con el precio escrito como texto.
+
+a. Qué creo que pasará
+
+Solo se permiten números en la casilla del precio del anuncio.
+
+d. Línea de error.
+
+No hay. MongoDB permite insertar el anuncio porque no hemos definido una restricción que obligue a que el precio sea numérico. Sin embargo, la lámpara no aparece en la búsqueda porque su precio está almacenado como texto y no como número.
+
+5\.Cambiar el precio del Xiaomi sin operador.
+
+a. Qué creo que pasará
+
+No se puede insertar precio, o cualquier otra acción, sin el operador.
+
+d. Línea de error.
+
+MongoInvalidArgumentError: Update document requires atomic operators
+
+(Se requiere operador).
+
+6\.Buscar el iPhone por su id escrito como texto.
+
+a. Qué creo que pasará
+
+No dará error. Se permite insertar precio en formato string.
+
+d. Línea de error.
+
+null
+
+(MongoDB considera que son tipos de datos diferentes, no encuentra coincidencias y devuelve null).
+
+7\.B4.3 se ha guardado. En el gimnasio, ¿qué habría pasado con un plan_id que no existe? ¿Quién debe comprobar en Rastro que el vendedor existe?
+
+PostgreSQL habría rechazado el registro porque el `plan_id` no existe. En Rastro, el backend debe comprobar que el vendedor existe.
+
+8\.en B4.4, ¿por qué la lámpara de 75 € no sale en la búsqueda de anuncios de menos de 100 €?
+
+Porque el precio está guardado como texto (`"75"`) y no como número.
+
+9\.¿qué tienen en común B4.3 y B4.4? Pista: piensa en lo que MongoDB no comprueba por ti.
+
+MongoDB no comprueba automáticamente que las referencias existan ni que los datos tengan el tipo correcto.
