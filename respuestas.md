@@ -447,28 +447,27 @@ No dan error. Simplemente no aparecen en los resultados porque no tienen ese cam
 
 ### B8
 
-1
+1\.Da dos razones por las que MongoDB encaja en Rastro.
+
+MongoDB encaja porque permite guardar datos de distintos tipos y añadir campos nuevos fácilmente y permite guardar datos relacionados dentro de un mismo documento.
 
 
+2\.¿Qué parte de una app como Rastro guardarías en SQL? ¿Por qué?
 
-2
+Guardaría en SQL los datos que necesitan muchas relaciones y controles, como los pagos y las compras, porque permite controlar mejor las relaciones entre tablas.
 
+3\.¿Por qué las fotos van embebidas y las ofertas en otra colección?
 
+Las fotos van dentro del anuncio porque pertenecen a él y se consultan juntas. Las ofertas van aparte porque puede haber muchas y se consultan de forma independiente.
 
-3
+4\.¿Por qué la oferta guarda una copia del precio del anuncio?
 
+Para conservar el precio que tenía el anuncio cuando se hizo la oferta, aunque después cambie.
 
+5\.¿Qué es desnormalizar? Di una ventaja y un inconveniente que hayas visto en esta entrega.
 
-4
+Desnormalizar es guardar copias de algunos datos para consultarlos más fácilmente. La ventaja es que evitamos algunas consultas; el inconveniente es que hay que actualizar todas las copias si el dato cambia.
 
+6\.En PostgreSQL, una clave ajena impide referenciar algo que no existe. En MongoDB, ¿quién se encarga de eso?
 
-
-5
-
-
-
-6
-
-
-
-
+El backend de la aplicación debe comprobar que los datos relacionados existen antes de guardarlos.
